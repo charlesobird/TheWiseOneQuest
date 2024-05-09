@@ -7,10 +7,6 @@ public class PauseMenu : Menu
 {
 	public PauseMenu()
 	{
-		Size = new Microsoft.Xna.Framework.Vector2(
-			TheWiseOneQuest.screenWidth,
-			TheWiseOneQuest.screenHeight
-		);
 		AddReturnButton();
 		// UserInterface.Active.Clear();
 	}

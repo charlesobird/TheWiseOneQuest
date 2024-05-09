@@ -1,48 +1,38 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Mime;
 using Newtonsoft.Json;
 
 namespace TheWiseOneQuest.Handlers;
 
 public class JsonHandler
 {
+    public string ProjectDirectory = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        "TheWiseOneQuest"
+    );
+
     public void CreateTheWiseOneDirectory()
     {
-        Directory.CreateDirectory(
-            Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "TheWiseOneQuest"
-            )
-        );
+        Directory.CreateDirectory(ProjectDirectory);
     }
 
     public string GetFullFilePath(string fileName)
     {
-        if (
-            !Directory.Exists(
-                Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    "TheWiseOneQuest"
-                )
-            )
-        )
-        {
-            CreateTheWiseOneDirectory();
-        }
-        return Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "TheWiseOneQuest",
-            fileName
-        );
+		return fileName;
+        // if (!Directory.Exists(ProjectDirectory))
+        // {
+        //     CreateTheWiseOneDirectory();
+        // }
+        // return Path.Combine(ProjectDirectory, fileName);
     }
 
     public void CreateFile(string fileName)
     {
         try
         {
-            //File.Create(GetFullFilePath(fileName));
-            File.Create(fileName);
+            File.Create(GetFullFilePath(fileName));
         }
         catch
         {
@@ -54,11 +44,15 @@ public class JsonHandler
     {
         try
         {
-            //fileName = GetFullFilePath(fileName);
+            fileName = GetFullFilePath(fileName);
             string fileContents = File.ReadAllText(fileName);
             return JsonConvert.DeserializeObject(fileContents);
         }
         catch (FileNotFoundException)
+        {
+            throw;
+        }
+        catch (IOException)
         {
             throw;
         }
@@ -68,7 +62,7 @@ public class JsonHandler
     {
         try
         {
-            //fileName = GetFullFilePath(fileName);
+            fileName = GetFullFilePath(fileName);
             string fileContents = File.ReadAllText(fileName);
             return JsonConvert.DeserializeObject<T>(fileContents);
         }
@@ -76,9 +70,29 @@ public class JsonHandler
         {
             throw;
         }
+        catch (IOException)
+        {
+            throw;
+        }
     }
 
-    public void WriteToFile<T>(string fileName, string key, T contentToAdd)
+    public async void WriteEmptyJSONFile(string fileName)
+    {
+        try
+        {
+            Console.WriteLine(ProjectDirectory);
+            await File.WriteAllTextAsync(
+                GetFullFilePath(fileName),
+                JsonConvert.SerializeObject("{}")
+            );
+        }
+        catch (FileNotFoundException) { }
+        catch (NullReferenceException) { }
+        catch (IOException) { }
+        ;
+    }
+
+    public void AppendToFile<T>(string fileName, string key, T contentToAdd)
     {
         try
         {

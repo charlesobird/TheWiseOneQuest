@@ -6,14 +6,12 @@ namespace TheWiseOneQuest.Models;
 public class Wizard
 {
 	public int Hp { get; set; }
-	public string Element { get; set; }
-
 	public int MaxHealth { get; set; }
 	public int Dexterity { get; set; }
 	public int Wisdom { get; set; }
-	public Wizard(string element)
+	public Wizard()
 	{
-		Element = element;
+		MaxHealth = _Utils.DEFAULT_MAX_HEALTH;
 	}
 	public void CreateStats()
 	{
@@ -25,21 +23,21 @@ public class Wizard
 		Wisdom = (int)Math.Floor((1 + wisRandom) * _Utils.DEFAULT_WIS_STAT);
 		MaxHealth = _Utils.DEFAULT_MAX_HEALTH + (2 * Hp);
 	}
-	public bool CheckIfBuffActive(string attackingWizardElement)
+	public bool CheckIfBuffActive(string nonAttackingWizardElement, string attackingWizardElement)
 	{
-		if (Element == "Water" && attackingWizardElement == "Fire")
+		if (nonAttackingWizardElement == "Water" && attackingWizardElement == "Fire")
 		{
 			return true;
 		}
-		else if (Element == "Fire" && attackingWizardElement == "Air")
+		else if (nonAttackingWizardElement == "Fire" && attackingWizardElement == "Air")
 		{
 			return true;
 		}
-		else if (Element == "Air" && attackingWizardElement == "Earth")
+		else if (nonAttackingWizardElement == "Air" && attackingWizardElement == "Earth")
 		{
 			return true;
 		}
-		else if (Element == "Earth" && attackingWizardElement == "Water")
+		else if (nonAttackingWizardElement == "Earth" && attackingWizardElement == "Water")
 		{
 			return true;
 		}

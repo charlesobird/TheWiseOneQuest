@@ -8,8 +8,10 @@ public class PlayerWizard : Wizard
 	public bool GameLost { get; set; }
 	public string Name { get; set; }
 
-	public PlayerWizard(string name, string element)
-		: base(element) { }
+	public PlayerWizard(string name)
+	{
+		Name = name;
+	}
 	public void SetName(string newName)
 	{
 		Name = newName;

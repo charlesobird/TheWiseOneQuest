@@ -8,6 +8,7 @@ using TheWiseOneQuest.Components;
 using TheWiseOneQuest.Models;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Core = TheWiseOneQuest.TheWiseOneQuest;
+using GeonBit.UI;
 
 namespace TheWiseOneQuest.Screens;
 
@@ -18,10 +19,11 @@ public class CharacterSelection : Menu
     public CharacterSelection()
     {
         _anchor = Anchor.Center;
-        Size = new Vector2(730, 0);
         _scrollbar = new VerticalScrollbar();
-        Header header = new Header("Character Selection");
-        header.FillColor = Color.White;
+        Header header = new Header("Character Selection")
+        {
+            FillColor = Color.White
+        };
         AddChild(header);
         AddChild(new HorizontalLine());
     }
@@ -75,11 +77,10 @@ public class CharacterSelection : Menu
         AddChild(selectCharacter);
         wizardDropdown.OnValueChange = (Entity entity) =>
         {
-            PlayerWizard wizard = wizards[wizardDropdown.GetValue().ToString()];
             wizardName = wizardDropdown.GetValue().ToString();
+            PlayerWizard wizard = wizards[wizardName];
             chosenWizardStats.ClearItems();
             chosenWizardStats.AddItem(string.Format("{0} {1,-8}", "Name", wizard.Name));
-            chosenWizardStats.AddItem(string.Format("{0} {1,-8}", "Element", wizard.Element));
             chosenWizardStats.AddItem(string.Format("{0} {1,-8}", "Dexterity", wizard.Dexterity));
             chosenWizardStats.AddItem(string.Format("{0} {1,-8}", "Wisdom", wizard.Wisdom));
             chosenWizardStats.AddItem(string.Format("{0} {1,-8}", "Hp", wizard.Hp));
@@ -89,6 +90,8 @@ public class CharacterSelection : Menu
             selectCharacter.Visible = true;
         };
 
-        AddReturnButton();
+        AddReturnButton((Entity e) => {
+            UserInterface.Active.AddEntity(new PlaySelection());
+        });
     }
 }

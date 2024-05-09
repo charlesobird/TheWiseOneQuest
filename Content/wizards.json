@@ -1,3 +1,13 @@
 {
-	"Untold": {}
+  "Char": {
+    "RoundsWon": 0,
+    "RoundsPlayed": 0,
+    "TheWiseOne": false,
+    "GameLost": false,
+    "Name": "Char",
+    "Hp": 13,
+    "MaxHealth": 100,
+    "Dexterity": 13,
+    "Wisdom": 11
+  }
 }

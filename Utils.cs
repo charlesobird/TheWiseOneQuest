@@ -14,8 +14,8 @@ namespace TheWiseOneQuest.Utils
         public static int DEFAULT_ROUNDS_WON_THRESHOLD = 5;
         public static string[] ELEMENTS = { "Water", "Earth", "Fire", "Air" };
         public static string WIZARD_STORE_FILE_NAME = "./Content/wizards.json";
-        public static string TEST_WIZARD_STORE_FILE_NAME = "wizards.json"; // for testing storing wizards in AppData/Roaming/TheWiseOneQuest
-        public static Vector2 WIZARD_SPRITE_SIZE = new Vector2(200,200);
+        // public static string WIZARD_STORE_FILE_NAME = "wizards.json";
+        public static Vector2 WIZARD_SPRITE_SIZE = new Vector2(0.25f);
         public Utils() { }
 
         public static float GetPercentageOfScreenWidth(double percentage)
@@ -40,11 +40,11 @@ namespace TheWiseOneQuest.Utils
             return new Random().Next(maxValue);
         }
 
-        public static void ToggleFullscreen() {
-            GraphicsDeviceManager _graphics = TheWiseOneQuest.graphics;
-            //_graphics.ToggleFullScreen();
-            TheWiseOneQuest.screenHeight = _graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
-            TheWiseOneQuest.screenWidth = _graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-        }
+        // public static void ToggleFullscreen() {
+        //     GraphicsDeviceManager _graphics = TheWiseOneQuest.graphics;
+        //     // _graphics.ToggleFullScreen();
+        //     // TheWiseOneQuest.screenHeight = _graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
+        //     // TheWiseOneQuest.screenWidth = _graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+        // }
     }
 };
