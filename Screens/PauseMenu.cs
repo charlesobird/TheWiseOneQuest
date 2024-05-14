@@ -1,5 +1,4 @@
 using TheWiseOneQuest.Components;
-using Core = TheWiseOneQuest.TheWiseOneQuest;
 
 namespace TheWiseOneQuest.Screens;
 

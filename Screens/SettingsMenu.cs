@@ -1,10 +1,7 @@
 using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework;
 using TheWiseOneQuest.Components;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
-using _Utils = TheWiseOneQuest.Utils.Utils;
 using GeonBit.UI;
-using System;
 
 namespace TheWiseOneQuest.Screens;
 
@@ -27,7 +24,9 @@ public class SettingsMenu : Menu
             fullScreenToggle.ChangeValue(graphics.IsFullScreen, true);
         };
         AddChild(fullScreenToggle);
-        AddReturnButton();
+        AddReturnButton((Entity e) => {
+            UserInterface.Active.AddEntity(new MainMenu());
+        });
     }
 
 }

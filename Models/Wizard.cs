@@ -1,5 +1,4 @@
-using System;
-using System.Runtime.CompilerServices;
+using TheWiseOneQuest.Utils;
 using _Utils = TheWiseOneQuest.Utils.Utils;
 namespace TheWiseOneQuest.Models;
 
@@ -11,33 +10,27 @@ public class Wizard
 	public int Wisdom { get; set; }
 	public Wizard()
 	{
+        Hp = 0;
+        Dexterity = 0;
+        Wisdom = 0;
 		MaxHealth = _Utils.DEFAULT_MAX_HEALTH;
 	}
-	public void CreateStats()
+
+	public bool CheckIfBuffActive(Element nonAttackingWizardElement, Element attackingWizardElement)
 	{
-		double hpRandom = _Utils.GenerateRandomDouble();
-		double dexRandom = _Utils.GenerateRandomDouble();
-		double wisRandom = _Utils.GenerateRandomDouble();
-		Hp = (int)Math.Floor((1 + hpRandom) * _Utils.DEFAULT_HP_STAT);
-		Dexterity = (int)Math.Floor((1 + dexRandom) * _Utils.DEFAULT_DEX_STAT);
-		Wisdom = (int)Math.Floor((1 + wisRandom) * _Utils.DEFAULT_WIS_STAT);
-		MaxHealth = _Utils.DEFAULT_MAX_HEALTH + (2 * Hp);
-	}
-	public bool CheckIfBuffActive(string nonAttackingWizardElement, string attackingWizardElement)
-	{
-		if (nonAttackingWizardElement == "Water" && attackingWizardElement == "Fire")
+		if (nonAttackingWizardElement == Element.Water && attackingWizardElement == Element.Fire)
 		{
 			return true;
 		}
-		else if (nonAttackingWizardElement == "Fire" && attackingWizardElement == "Air")
+		else if (nonAttackingWizardElement == Element.Fire && attackingWizardElement == Element.Air)
 		{
 			return true;
 		}
-		else if (nonAttackingWizardElement == "Air" && attackingWizardElement == "Earth")
+		else if (nonAttackingWizardElement == Element.Air && attackingWizardElement == Element.Earth)
 		{
 			return true;
 		}
-		else if (nonAttackingWizardElement == "Earth" && attackingWizardElement == "Water")
+		else if (nonAttackingWizardElement == Element.Earth && attackingWizardElement == Element.Water)
 		{
 			return true;
 		}

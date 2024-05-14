@@ -1,14 +1,11 @@
-using GeonBit.UI.Entities;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using TheWiseOneQuest.Handlers;
-using TheWiseOneQuest.Models;
+using GeonBit.UI;
 using Core = TheWiseOneQuest.TheWiseOneQuest;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
-using _Utils = TheWiseOneQuest.Utils.Utils;
+using TheWiseOneQuest.Components;
+using GeonBit.UI.Entities;
 namespace TheWiseOneQuest.Screens;
 
-public class BattleScreen : Panel
+public class BattleScreen : Menu
 {
     public BattleScreen()
     {
@@ -16,11 +13,21 @@ public class BattleScreen : Panel
         _indexInParent = -1;
         Opacity = 1;
         Size = new Vector2(0, 0);
-        Button returnToMenu = new Button("To Main Menu", ButtonSkin.Default, Anchor.BottomCenter,size:new Vector2(0.25f,0.05f))
+
+        Panel playerInfo = new Panel(size:new Vector2(0.25f,-1),anchor:Anchor.BottomLeft, skin:PanelSkin.None);
+        ProgressBar progressBar = new ProgressBar(0,Core.playerWizard.MaxHealth){
+            Locked = true,
+            SliderSkin = SliderSkin.Default
+        };
+        AddChild(playerInfo);
+        playerInfo.AddChild(progressBar);
+        Button returnToMenu = new("Main Menu", ButtonSkin.Default, Anchor.BottomCenter,size:new Vector2(0.25f,0.05f))
         {
             OnClick = (Entity bt) =>
             {
                 Core.exitGame.Visible = true;
+                Core.ResetSprites();
+                UserInterface.Active.AddEntity(new MainMenu());
                 RemoveFromParent();
             }
         };

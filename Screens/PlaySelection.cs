@@ -1,18 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 using GeonBit.UI;
 using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework;
 using TheWiseOneQuest.Components;
-using TheWiseOneQuest.Handlers;
 using TheWiseOneQuest.Models;
 using Core = TheWiseOneQuest.TheWiseOneQuest;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
-using _Utils = TheWiseOneQuest.Utils.Utils;
 
 namespace TheWiseOneQuest.Screens;
 

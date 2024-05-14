@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
 
 namespace TheWiseOneQuest.Models.Sprites
 {
-	public class Animation
+    public class Animation
 	{
-
-
 		readonly Rectangle[] frames;
 		int _frameCount;
 		int framesPerSecond;
@@ -20,8 +16,7 @@ namespace TheWiseOneQuest.Models.Sprites
 
 		bool isLooping;
 
-
-		public int FramesPerSecond
+        public int FramesPerSecond
 		{
 			get { return framesPerSecond; }
 			set
@@ -83,28 +78,16 @@ namespace TheWiseOneQuest.Models.Sprites
 			Reset();
 		}
 
-		private Animation(Animation animation)
+        public void Update(GameTime gameTime)
 		{
-			this.frames = animation.frames;
-			FramesPerSecond = 3;
-		}
 
-
-		bool firstPlay = false;
-		public void Update(GameTime gameTime)
-		{
-	
 			frameTimer += gameTime.ElapsedGameTime;
 
 			if (frameTimer >= frameLength)
 			{
 				frameTimer = TimeSpan.Zero;
 				currentFrame = (currentFrame + 1) % frames.Length;
-				if (currentFrame == frames.Length - 1) {
-					firstPlay = true;
-				}
 				if (isLooping) {
-					Console.WriteLine("Loop anim");
 					currentFrame = (currentFrame + 1) % frames.Length;
 				} else {
 					currentFrame = Math.Min(currentFrame + 1, frames.Length - 1);
@@ -118,16 +101,15 @@ namespace TheWiseOneQuest.Models.Sprites
 			frameTimer = TimeSpan.Zero;
 		}
 
+		// public object Clone()
+		// {
+		// 	Animation animationClone =
+		// 		new(this) { frameWidth = frameWidth, frameHeight = frameHeight };
 
-		public object Clone()
-		{
-			Animation animationClone =
-				new(this) { frameWidth = this.frameWidth, frameHeight = this.frameHeight };
+		// 	animationClone.Reset();
 
-			animationClone.Reset();
-
-			return animationClone;
-		}
+		// 	return animationClone;
+		// }
 
 	}
 }

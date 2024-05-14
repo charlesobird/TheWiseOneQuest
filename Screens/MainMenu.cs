@@ -13,7 +13,6 @@ class MainMenu : Menu
         Header header = new Header("The Wise One's Quest") { FillColor = Color.White };
         AddChild(header);
         AddChild(new HorizontalLine());
-
         Button playButton = new Button("Play")
         {
             OnClick = (Entity e) =>

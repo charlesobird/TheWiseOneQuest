@@ -6,7 +6,6 @@ using GeonBit.UI.Utils;
 using Microsoft.Xna.Framework;
 using TheWiseOneQuest.Components;
 using TheWiseOneQuest.Models;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Core = TheWiseOneQuest.TheWiseOneQuest;
 using GeonBit.UI;
 
@@ -69,7 +68,7 @@ public class CharacterSelection : Menu
                 }
                 catch (NullReferenceException)
                 {
-                    MessageBox.ShowMsgBox("Chosen Wizard!!", "Wizard doesn't exist");
+                    MessageBox.ShowMsgBox("Error", "Wizard doesn't exist");
                 }
             }
         };

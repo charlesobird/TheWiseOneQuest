@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json.Nodes;
-using System.Threading;
-using Microsoft.Xna.Framework;
 using TheWiseOneQuest.Models;
 using _Utils = TheWiseOneQuest.Utils.Utils;
 
@@ -74,12 +70,12 @@ public class WizardHandler
 
 	public EnemyWizard CreateEnemyWizard()
 	{
-		string[] enemyNames = storage.ReadFromFile<string[]>(@"enemyNames.json");
+		string[] enemyNames = storage.ReadFromFile<string[]>("enemyNames.json");
 		string enemyName = enemyNames.ElementAt(_Utils.GenerateRandomInteger(enemyNames.Length));
 		// string enemyElement = _Utils.ELEMENTS.ElementAt(
 		// 	_Utils.GenerateRandomInteger(_Utils.ELEMENTS.Length)
 		// );
-		string[] enemyDescriptors = storage.ReadFromFile<string[]>(@"enemyDescriptors.json");
+		string[] enemyDescriptors = storage.ReadFromFile<string[]>("enemyDescriptors.json");
 		string enemyDescriptor = enemyDescriptors.ElementAt(
 			_Utils.GenerateRandomInteger(enemyDescriptors.Length)
 		);

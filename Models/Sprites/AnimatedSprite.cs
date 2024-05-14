@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using GeonBit.UI.Entities;
 
 namespace TheWiseOneQuest.Models.Sprites
 {
-	public class AnimatedSprite : Sprite
+    public class AnimatedSprite : Sprite
 	{
 
 		readonly Dictionary<string, Animation> animations;
@@ -40,7 +36,7 @@ namespace TheWiseOneQuest.Models.Sprites
 			_spriteWidth = spriteWidth;
 			_spriteHeight = spriteHeight;
 			foreach (string key in animation.Keys)
-				animations.Add(key, (Animation)animation[key].Clone());
+				animations.Add(key, animation[key]);
 		}
 
 		public void ResetAnimation()
@@ -53,7 +49,7 @@ namespace TheWiseOneQuest.Models.Sprites
 			if (isAnimating)
 			{
 				animations[currentAnimation].Update(gameTime);
-			} 
+			}
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
