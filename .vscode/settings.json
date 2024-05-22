@@ -1,8 +1,0 @@
-{
-    "diffEditor.codeLens": true,
-    "editor.renderWhitespace": "boundary",
-    "editor.tabSize": 4,
-    "editor.detectIndentation": false,
-    "editor.fontFamily": "Fira Code",
-    "editor.fontLigatures": true,
-}

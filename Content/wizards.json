@@ -1,57 +1,13 @@
 {
-  "Test": {
+  "Tester": {
     "RoundsWon": 0,
     "RoundsPlayed": 0,
     "TheWiseOne": false,
     "GameLost": false,
-    "Name": "Test",
-    "Hp": 7,
-    "MaxHealth": 131,
-    "Dexterity": 0,
-    "Wisdom": 13
-  },
-  "Testtt": {
-    "RoundsWon": 0,
-    "RoundsPlayed": 0,
-    "TheWiseOne": false,
-    "GameLost": false,
-    "Name": "Testtt",
-    "Hp": 6,
-    "MaxHealth": 121,
-    "Dexterity": 0,
-    "Wisdom": 5
-  },
-  "Hdhsg": {
-    "RoundsWon": 0,
-    "RoundsPlayed": 0,
-    "TheWiseOne": false,
-    "GameLost": false,
-    "Name": "Hdhsg",
-    "Hp": 11,
-    "MaxHealth": 166,
-    "Dexterity": 0,
-    "Wisdom": 9
-  },
-  "Te": {
-    "RoundsWon": 0,
-    "RoundsPlayed": 0,
-    "TheWiseOne": false,
-    "GameLost": false,
-    "Name": "Te",
-    "Hp": 8,
-    "MaxHealth": 136,
-    "Dexterity": 8,
-    "Wisdom": 4
-  },
-  "G": {
-    "RoundsWon": 0,
-    "RoundsPlayed": 0,
-    "TheWiseOne": false,
-    "GameLost": false,
-    "Name": "G",
-    "Hp": 2,
-    "MaxHealth": 103,
-    "Dexterity": 3,
-    "Wisdom": 1
+    "Hp": 3,
+    "MaxHealth": 108,
+    "Dexterity": 20,
+    "Wisdom": 7,
+    "Name": "Tester"
   }
 }

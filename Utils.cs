@@ -1,16 +1,62 @@
 using System;
 using System.Threading;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace TheWiseOneQuest.Utils
 {
-    // This is used to find the related animation in the sprite atlas / sheet for the wizard, e.g. Idle is found at height 0 to 128, Death is found at 128 to 256
-    enum WIZARD_SPRITE_SHEET_LOCATIONS
+    public class EnemyResources
+{
+	public static string[] names = {
+		"Merlin Darkstar",
+		"Astrid Spellweaver",
+		"Thaddeus Shadowcloak",
+		"Isadora Moonwhisper",
+		"Alaric Frostbeard",
+		"Seraphina Starfury",
+		"Ignatius Stormcaller",
+		"Cassandra Nightshade",
+		"Oberon Fireheart",
+		"Morgana Silverwind",
+		"Zephyr Skyweaver",
+		"Valeria Stardust",
+		"Ragnar Blackthorn",
+		"Lysander Spellbound",
+		"Selene Moonlight",
+		"Octavius Thunderhand",
+		"Lyra Frostglow",
+		"Darius Shadowblade",
+		"Seraphim Phoenixwing",
+		"Azura Mysticfire"
+	};
+	public static string[] descriptors = {
+			"The Great",
+		"The Wise",
+		"The Mighty",
+		"The Magnificent",
+		"The Enigmatic",
+		"The Legendary",
+		"The Illustrious",
+		"The Revered",
+		"The Masterful",
+		"The Mystical",
+		"The Arcane",
+		"The Supreme",
+		"The Eternal",
+		"The Transcendent",
+		"The Radiant",
+		"The Sovereign",
+		"The Fabled"
+	};
+}
+    // This is used to find the related animation in the sprite atlas / sheet for the wizard
+    //e.g. Idle is found at height 0 to 128, Death is found at 128 to 256
+    public enum WIZARD_SPRITE_SHEET_LOCATIONS
     {
         Idle = 0,
         Death = 128,
-        Hurt = 256,
-        CastSpell = 512
+        CastSpell = 256,
+        Hurt = 384
     }
 
     public enum Element {
@@ -22,14 +68,13 @@ namespace TheWiseOneQuest.Utils
 
     public class Utils
     {
-        public static byte DEFAULT_STARTER_POINTS = 20;
+        public static ContentManager Content;
+        public static byte DEFAULT_STARTER_POINTS = 30;
         public static byte DEFAULT_MAX_HEALTH = 100;
         public static int DEFAULT_ROUNDS_WON_THRESHOLD = 5; // Determines how many rounds you need to win to get the title
-        public static string[] ELEMENTS = { "Fire", "Air", "Water", "Earth" };
         public static string WIZARD_STORE_FILE_NAME = "./Content/wizards.json";
-
-        // public static string WIZARD_STORE_FILE_NAME = "wizards.json";
-        public static Vector2 WIZARD_SPRITE_SIZE = new Vector2(0.25f);
+        public static Vector2 WIZARD_SPRITE_SIZE = new Vector2(256);
+        public static Vector2 DEFAULT_PROJECTILE_SIZE = new Vector2(64);
 
         public static string FIRE_WZARD_SPRITE_ATLAS = "Sprites/FireWizard";
         public static string AIR_WIZARD_SPRITE_ATLAS = "Sprites/AirWizard";

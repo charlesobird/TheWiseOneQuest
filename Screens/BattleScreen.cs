@@ -3,10 +3,20 @@ using Core = TheWiseOneQuest.TheWiseOneQuest;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using TheWiseOneQuest.Components;
 using GeonBit.UI.Entities;
+using TheWiseOneQuest.Models;
+using System.Collections.Generic;
 namespace TheWiseOneQuest.Screens;
 
 public class BattleScreen : Menu
 {
+    List<Button> actionButtons = new();
+    public void LockActionButtons()
+    {
+        foreach (var button in actionButtons)
+        {
+            button.Locked = true;
+        }
+    }
     public BattleScreen()
     {
         Scale = 1f;
@@ -14,19 +24,34 @@ public class BattleScreen : Menu
         Opacity = 1;
         Size = new Vector2(0, 0);
 
-        Panel playerInfo = new Panel(size:new Vector2(0.25f,-1),anchor:Anchor.BottomLeft, skin:PanelSkin.None);
-        ProgressBar progressBar = new ProgressBar(0,Core.playerWizard.MaxHealth){
-            Locked = true,
-            SliderSkin = SliderSkin.Default
+        // Core.battleHandler.StartBattle();
+        WizardInfo playerInfo = new WizardInfo(Core.playerWizard)
+        {
+            Anchor = Anchor.TopLeft
         };
+
+        Button attackButton = new("Attack!");
+        Button blockButton = new("Block!");
+        Button healButton = new("Heal Yourself!");
+
+        actionButtons.Add(attackButton);
+        actionButtons.Add(blockButton);
+        actionButtons.Add(healButton);
+
+
+        if (!Core.battleHandler.PlayerTurn)
+        {
+            // action buttons are locked
+            LockActionButtons();
+        }
+
         AddChild(playerInfo);
-        playerInfo.AddChild(progressBar);
-        Button returnToMenu = new("Main Menu", ButtonSkin.Default, Anchor.BottomCenter,size:new Vector2(0.25f,0.05f))
+        Button returnToMenu = new("Main Menu", ButtonSkin.Default, Anchor.BottomCenter, size: new Vector2(0.25f, 0.05f))
         {
             OnClick = (Entity bt) =>
             {
                 Core.exitGame.Visible = true;
-                Core.ResetSprites();
+                Core.spriteHandler.ClearAnimatedSprites();
                 UserInterface.Active.AddEntity(new MainMenu());
                 RemoveFromParent();
             }

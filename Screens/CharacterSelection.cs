@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GeonBit.UI;
 using GeonBit.UI.Entities;
 using GeonBit.UI.Utils;
 using Microsoft.Xna.Framework;
 using TheWiseOneQuest.Components;
 using TheWiseOneQuest.Models;
 using Core = TheWiseOneQuest.TheWiseOneQuest;
-using GeonBit.UI;
 
 namespace TheWiseOneQuest.Screens;
 
@@ -19,23 +19,18 @@ public class CharacterSelection : Menu
     {
         _anchor = Anchor.Center;
         _scrollbar = new VerticalScrollbar();
-        Header header = new Header("Character Selection")
-        {
-            FillColor = Color.White
-        };
+        Header header = new Header("Character Selection") { FillColor = Color.White };
         AddChild(header);
         AddChild(new HorizontalLine());
     }
 
     public void SetupUI(Dictionary<string, PlayerWizard> wizards)
     {
-        if (wizards.ToArray().Length == 0) return;
+        if (wizards.ToArray().Length == 0)
+            return;
         int panelSize = (int)Convert.ToDouble(730 / wizards.ToArray().Length);
         DropDown wizardDropdown = new DropDown();
-        SelectList chosenWizardStats = new SelectList()
-        {
-            Locked = true
-        };
+        SelectList chosenWizardStats = new SelectList() { Locked = true };
         bool firstClick = false;
         wizardDropdown.OnClick = (Entity e) =>
         {
@@ -51,27 +46,22 @@ public class CharacterSelection : Menu
             }
         };
 
-
         string wizardName;
         AddChild(wizardDropdown);
         AddChild(chosenWizardStats);
-        Button selectCharacter = new("Select Character")
-        {
-            Visible = false,
-            OnClick = (Entity e) =>
+        Button selectCharacter =
+            new("Select Character")
             {
-                try
+                Visible = false,
+                OnClick = (Entity e) =>
                 {
+                    if (selectedWizard == null)
+                        return;
                     Core.SetPlayerWizard(selectedWizard);
                     RemoveFromParent();
                     Core.ShowBattleScreen();
                 }
-                catch (NullReferenceException)
-                {
-                    MessageBox.ShowMsgBox("Error", "Wizard doesn't exist");
-                }
-            }
-        };
+            };
 
         AddChild(selectCharacter);
         wizardDropdown.OnValueChange = (Entity entity) =>
@@ -89,8 +79,11 @@ public class CharacterSelection : Menu
             selectCharacter.Visible = true;
         };
 
-        AddReturnButton((Entity e) => {
-            UserInterface.Active.AddEntity(new PlaySelection());
-        });
+        AddReturnButton(
+            (Entity e) =>
+            {
+                UserInterface.Active.AddEntity(new PlaySelection());
+            }
+        );
     }
 }

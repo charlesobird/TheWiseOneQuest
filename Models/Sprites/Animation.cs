@@ -5,7 +5,11 @@ namespace TheWiseOneQuest.Models.Sprites
 {
     public class Animation
 	{
+        // TODO: Issue I1: Fix the issue with it not liking Animations with 2 sprites, only likes 3 for some reason? 
+        // Workaround for the above: either add another sprite (duplicate the first one) OR put 3 as the _frameCount param of the constructor
+        // FIXED: I1 is apparently fixed...?
 		readonly Rectangle[] frames;
+        string id;
 		int _frameCount;
 		int framesPerSecond;
 		TimeSpan frameLength;
@@ -14,7 +18,7 @@ namespace TheWiseOneQuest.Models.Sprites
 		int frameWidth;
 		int frameHeight;
 
-		bool isLooping;
+		public bool isLooping;
 
         public int FramesPerSecond
 		{
@@ -39,7 +43,7 @@ namespace TheWiseOneQuest.Models.Sprites
 		public int CurrentFrame
 		{
 			get { return currentFrame; }
-			set { currentFrame = (int)MathHelper.Clamp(value, 0, frames.Length - 1); }
+			set { currentFrame = MathHelper.Clamp(value, 0, frames.Length - 1); }
 		}
 
 		public int FrameCount
@@ -58,8 +62,9 @@ namespace TheWiseOneQuest.Models.Sprites
 		}
 
 
-		public Animation(int frameCount, int frameWidth, int frameHeight, int xOffset, int yOffset, bool looping)
+		public Animation(string _id, int frameCount, int frameWidth, int frameHeight, int xOffset, int yOffset, bool looping)
 		{
+            id = _id;
 			frames = new Rectangle[frameCount];
 			this.frameWidth = frameWidth;
 			this.frameHeight = frameHeight;
@@ -86,9 +91,8 @@ namespace TheWiseOneQuest.Models.Sprites
 			if (frameTimer >= frameLength)
 			{
 				frameTimer = TimeSpan.Zero;
-				currentFrame = (currentFrame + 1) % frames.Length;
 				if (isLooping) {
-					currentFrame = (currentFrame + 1) % frames.Length;
+				    currentFrame = (currentFrame + 1) % frames.Length;
 				} else {
 					currentFrame = Math.Min(currentFrame + 1, frames.Length - 1);
 				}
@@ -100,16 +104,5 @@ namespace TheWiseOneQuest.Models.Sprites
 			currentFrame = 0;
 			frameTimer = TimeSpan.Zero;
 		}
-
-		// public object Clone()
-		// {
-		// 	Animation animationClone =
-		// 		new(this) { frameWidth = frameWidth, frameHeight = frameHeight };
-
-		// 	animationClone.Reset();
-
-		// 	return animationClone;
-		// }
-
-	}
+    }
 }

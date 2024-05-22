@@ -13,14 +13,10 @@
     <ItemGroup>
         <None Remove="Icon.ico" />
         <None Remove="Icon.bmp" />
-        <None Remove="enemyDescriptors.json" />
-        <None Remove="enemyNames.json" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="Icon.ico" />
         <EmbeddedResource Include="Icon.bmp" />
-        <EmbeddedResource Include="enemyDescriptors.json" />
-        <EmbeddedResource Include="enemyNames.json" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />

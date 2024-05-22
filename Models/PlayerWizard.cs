@@ -6,7 +6,7 @@ public class PlayerWizard : Wizard
 	public int RoundsPlayed { get; set; }
 	public bool TheWiseOne { get; set; }
 	public bool GameLost { get; set; }
-	public string Name { get; set; }
+	//public string Name { get; set; }
 
 	public PlayerWizard(string name)
 	{

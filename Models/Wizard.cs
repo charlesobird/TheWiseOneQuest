@@ -1,3 +1,4 @@
+using System;
 using TheWiseOneQuest.Utils;
 using _Utils = TheWiseOneQuest.Utils.Utils;
 namespace TheWiseOneQuest.Models;
@@ -8,6 +9,8 @@ public class Wizard
 	public int MaxHealth { get; set; }
 	public int Dexterity { get; set; }
 	public int Wisdom { get; set; }
+	public string Name { get; set; }
+
 	public Wizard()
 	{
         Hp = 0;
