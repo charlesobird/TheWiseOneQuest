@@ -4,11 +4,12 @@ using TheWiseOneQuest.Models;
 
 namespace TheWiseOneQuest.Components;
 
-class WizardInfo : Panel
+public class WizardInfo : Panel
 {
 	public Paragraph wizardName;
 	public ProgressBar wizardHealth;
 	public Paragraph wizHealthParagraph;
+	public Paragraph infoParagraph;
 	public WizardInfo(Wizard wizard)
 	{
 		Size = new Vector2(0.25f,0.2f);
@@ -21,8 +22,10 @@ class WizardInfo : Panel
 			SliderSkin = SliderSkin.Default
 		};
 		wizHealthParagraph = new Paragraph($"Health: {wizard.MaxHealth} / {wizard.MaxHealth}", Anchor.Center);
+		infoParagraph = new Paragraph("", Anchor = Anchor.AutoCenter);
 		wizardHealth.AddChild(wizHealthParagraph);
 		AddChild(wizardName);
 		AddChild(wizardHealth);
+		AddChild(infoParagraph);
 	}
 }

@@ -1,5 +1,3 @@
-using _Utils = TheWiseOneQuest.Utils.Utils;
-
 namespace TheWiseOneQuest.Models;
 
 
@@ -14,10 +12,9 @@ public class EnemyWizard : Wizard
 
     public void CreateStats()
     {
-        int availPoints = _Utils.DEFAULT_STARTER_POINTS / 2;
-        Hp = (byte)_Utils.GenerateRandomInteger(availPoints);
-        Dexterity = (byte)_Utils.GenerateRandomInteger(availPoints);
-        Wisdom = (byte)_Utils.GenerateRandomInteger(availPoints);
+        Hp = (byte)_Utils.GenerateRandomInteger(1,10);
+        Dexterity = (byte)_Utils.GenerateRandomInteger(1,10);
+        Wisdom = (byte)_Utils.GenerateRandomInteger(10,20);
         MaxHealth = 100 + Hp;
     }
 }

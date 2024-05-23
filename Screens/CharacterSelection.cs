@@ -7,7 +7,6 @@ using GeonBit.UI.Utils;
 using Microsoft.Xna.Framework;
 using TheWiseOneQuest.Components;
 using TheWiseOneQuest.Models;
-using Core = TheWiseOneQuest.TheWiseOneQuest;
 
 namespace TheWiseOneQuest.Screens;
 

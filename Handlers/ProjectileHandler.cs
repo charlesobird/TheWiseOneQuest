@@ -1,14 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using TheWiseOneQuest.Models;
-using TheWiseOneQuest.Models.Sprites;
-using Core = TheWiseOneQuest.TheWiseOneQuest;
-using _Utils = TheWiseOneQuest.Utils.Utils;
-using System.Linq;
-
 namespace TheWiseOneQuest.Handlers;
 
 public class ProjectileHandler
@@ -51,6 +40,10 @@ public class ProjectileHandler
     {
         elementalMoves.RemoveAll(x => x.isFinished);
     }
+    public void ClearElementalMoves()
+    {
+        elementalMoves.Clear();
+    }
     public void FireAllElementalMoves()
     {
         if (elementalMoves.Count > 0)
@@ -66,9 +59,8 @@ public class ProjectileHandler
     {
         if (elementalMoves.Count > 0)
         {
-            foreach (ElementalMove move in elementalMoves)
-            {
-                move.Update(gameTime);
+            for (int i = 0; i < elementalMoves.Count; i++) {
+                elementalMoves[i].Update(gameTime);
             }
         }
     }
@@ -76,9 +68,8 @@ public class ProjectileHandler
     {
         if (elementalMoves.Count > 0)
         {
-            foreach (ElementalMove move in elementalMoves)
-            {
-                move.Draw(spriteBatch);
+            for (int i = 0; i < elementalMoves.Count; i++) {
+                elementalMoves[i].Draw(spriteBatch);
             }
         }
     }

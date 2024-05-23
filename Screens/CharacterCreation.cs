@@ -1,13 +1,4 @@
-using GeonBit.UI;
-using GeonBit.UI.Entities;
-using GeonBit.UI.Entities.TextValidators;
-using GeonBit.UI.Utils;
-using Microsoft.Xna.Framework;
-using TheWiseOneQuest.Components;
-using TheWiseOneQuest.Models;
-using Core = TheWiseOneQuest.TheWiseOneQuest;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
-using _Utils = TheWiseOneQuest.Utils.Utils;
+
 
 namespace TheWiseOneQuest.Screens;
 

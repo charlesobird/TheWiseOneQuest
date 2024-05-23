@@ -1,18 +1,10 @@
-using GeonBit.UI;
-using Core = TheWiseOneQuest.TheWiseOneQuest;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
-using TheWiseOneQuest.Components;
-using GeonBit.UI.Entities;
-using TheWiseOneQuest.Models;
-using System.Collections.Generic;
-using System;
 namespace TheWiseOneQuest.Screens;
 
 public class BattleScreen : Menu
 {
-    List<Button> actionButtons = new();
-    WizardInfo playerInfo;
-    WizardInfo enemyInfo;
+    public List<Button> actionButtons = new();
+    public WizardInfo playerInfo;
+    public WizardInfo enemyInfo;
     public void LockActionButtons()
     {
         foreach (var button in actionButtons)
@@ -49,78 +41,88 @@ public class BattleScreen : Menu
         {
             Anchor = Anchor.TopLeft
         };
-        if (Core.battleHandler.playerAdvantage)
-        {
-            Paragraph advantageParagraph = new("You have a 50% damage bonus this attack!")
-            {
-                Anchor = Anchor.AutoCenter
-            };
-            playerInfo.AddChild(advantageParagraph);
-        }
+
         enemyInfo = new WizardInfo(Core.battleHandler.enemyWizard)
         {
             Anchor = Anchor.TopRight
         };
-        if (Core.battleHandler.playerAdvantage)
-        {
-            Paragraph advantageParagraph = new("You have a 50% damage bonus this attack!")
-            {
-                Anchor = Anchor.AutoCenter
-            };
-            enemyInfo.AddChild(advantageParagraph);
-        }
         Button attackButton = new("Attack!")
         {
-            OnClick = (e) =>
+            OnClick = async (e) =>
             {
-                Core.battleHandler.HandleAttack();
-            }
+                LockActionButtons();
+                await Core.battleHandler.AttackAsync();
+            },
+            Anchor = Anchor.AutoInlineNoBreak
         };
         Button blockButton = new("Block!")
         {
             OnClick = (e) =>
             {
+                LockActionButtons();
                 Core.battleHandler.HandleBlock(true);
-            }
+            },
+            Anchor = Anchor.AutoInlineNoBreak
+        };
+        Button healButton = new("Heal Yourself!")
+        {
+            OnClick = (e) =>
+            {
+                LockActionButtons();
+                Core.battleHandler.HandleHeal(true);
+            },
+            Anchor = Anchor.AutoInlineNoBreak
         };
 
-        actionButtons.Add(attackButton);
-        actionButtons.Add(blockButton);
-
         Panel actionPanel = new(
-            new Vector2(0.25f),
+            new Vector2(0.5f, 0.25f),
             PanelSkin.None,
-            Anchor.BottomCenter
+            Anchor.BottomCenter,
+            Vector2.Zero
         );
+
+        actionButtons.Add(attackButton);
+        actionButtons.Add(healButton);
+        actionButtons.Add(blockButton);
 
         AddChild(playerInfo);
         AddChild(enemyInfo);
-
-        // Action Buttons
-        foreach (Button actionBtn in actionButtons)
-        {
-            actionPanel.AddChild(actionBtn);
-        }
         Button returnToMenu = new("Main Menu")
         {
             OnClick = (Entity bt) =>
             {
                 Core.exitGame.Visible = true;
                 Core.spriteHandler.ClearAnimatedSprites();
+                Core.projectileHandler.ClearElementalMoves();
                 UserInterface.Active.AddEntity(new MainMenu());
+                Core.battleHandler = new();
                 RemoveFromParent();
             }
         };
-        actionPanel.AddChild(returnToMenu);
+        var columnPanels = PanelsGrid.GenerateColums(3, actionPanel);
+        foreach (var column in columnPanels)
+        {
+            column.Padding = Vector2.Zero;
+        }
+
+        Panel leftPanel = columnPanels[0];
+        Panel centerPanel = columnPanels[1];
+        Panel rightPanel = columnPanels[2];
+        leftPanel.AddChild(attackButton);
+        centerPanel.AddChild(healButton);
+        centerPanel.AddChild(returnToMenu);
+        rightPanel.AddChild(blockButton);
         AddChild(actionPanel);
 
 
     }
-    public void InitBattleScreen(bool playerGoesFirst)
+    public async Task InitBattleScreen(bool playerGoesFirst)
     {
         if (!playerGoesFirst)
         {
-            Core.battleHandler.HandleAttack(true);
+            LockActionButtons();
+            await Core.battleHandler.AttackAsync(true);
+
         }
     }
 }

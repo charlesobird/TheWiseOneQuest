@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using TheWiseOneQuest.Models;
-using TheWiseOneQuest.Utils;
-using _Utils = TheWiseOneQuest.Utils.Utils;
+
 
 namespace TheWiseOneQuest.Handlers;
 
@@ -73,10 +67,10 @@ public class WizardHandler
 	public EnemyWizard CreateEnemyWizard()
 	{
 		string[] enemyNames = EnemyResources.names;
-		string enemyName = enemyNames.ElementAt(_Utils.GenerateRandomInteger(enemyNames.Length));
+		string enemyName = enemyNames.ElementAt(_Utils.GenerateRandomInteger(maxValue:enemyNames.Length));
 		string[] enemyDescriptors = EnemyResources.descriptors;
 		string enemyDescriptor = enemyDescriptors.ElementAt(
-			_Utils.GenerateRandomInteger(enemyDescriptors.Length)
+			_Utils.GenerateRandomInteger(maxValue:enemyDescriptors.Length)
 		);
 		enemyName = $"{enemyDescriptor} {enemyName}";
 		EnemyWizard enemyWizard = new EnemyWizard(enemyName);

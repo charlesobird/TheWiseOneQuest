@@ -1,17 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using GeonBit.UI;
-using GeonBit.UI.Entities;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using TheWiseOneQuest.Handlers;
-using TheWiseOneQuest.Models;
-using TheWiseOneQuest.Models.Sprites;
-using TheWiseOneQuest.Screens;
-using TheWiseOneQuest.Utils;
-using _Utils = TheWiseOneQuest.Utils.Utils;
+﻿global using System;
+global using System.IO;
+global using System.Linq;
+global using System.Collections.Generic;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using GeonBit.UI;
+global using GeonBit.UI.Entities;
+global using Microsoft.Xna.Framework;
+global using Microsoft.Xna.Framework.Content;
+global using Microsoft.Xna.Framework.Graphics;
+global using Microsoft.Xna.Framework.Input;
+global using TheWiseOneQuest.Handlers;
+global using TheWiseOneQuest.Models;
+global using TheWiseOneQuest.Models.Sprites;
+global using TheWiseOneQuest.Screens;
+global using TheWiseOneQuest.Utils;
+global using _Utils = TheWiseOneQuest.Utils.Utils;
+global using GeonBit.UI.Entities.TextValidators;
+global using GeonBit.UI.Utils;
+global using TheWiseOneQuest.Components;
+global using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace TheWiseOneQuest
 {

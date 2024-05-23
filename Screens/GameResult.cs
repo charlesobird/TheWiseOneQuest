@@ -1,4 +1,3 @@
-using Core = TheWiseOneQuest.TheWiseOneQuest;
 using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework;
 using TheWiseOneQuest.Models;

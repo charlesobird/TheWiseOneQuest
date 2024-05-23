@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheWiseOneQuest.Models;
 using TheWiseOneQuest.Models.Sprites;
-using Core = TheWiseOneQuest.TheWiseOneQuest;
 using _WizardSpriteLocations = TheWiseOneQuest.Utils.WIZARD_SPRITE_SHEET_LOCATIONS;
 
 namespace TheWiseOneQuest.Handlers;
