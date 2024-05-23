@@ -6,8 +6,19 @@
     "GameLost": false,
     "Hp": 3,
     "MaxHealth": 108,
-    "Dexterity": 20,
+    "Dexterity": 254,
     "Wisdom": 7,
     "Name": "Tester"
+  },
+  "Charlers": {
+    "RoundsWon": 0,
+    "RoundsPlayed": 0,
+    "TheWiseOne": false,
+    "GameLost": false,
+    "Hp": 1,
+    "MaxHealth": 101,
+    "Dexterity": 254,
+    "Wisdom": 4,
+    "Name": "Charlers"
   }
 }

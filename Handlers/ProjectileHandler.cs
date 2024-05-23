@@ -23,9 +23,9 @@ public class ProjectileHandler
         projectileAnimations.Add("Fireball", fireball);
         Animation tornado = new("Tornado", 4, 64, 64, 0, 64, true) { FramesPerSecond = 2 };
         projectileAnimations.Add("Tornado", tornado);
-        Animation rocks = new("Rocks", 3, 64, 64, 0, 128, true) { FramesPerSecond = 1 };
+        Animation rocks = new("Rocks", 3, 64, 64, 0, 128, true) { FramesPerSecond = 2 };
         projectileAnimations.Add("Rock Blast", rocks);
-        Animation iceSpikes = new("Ice Spikes", 3, 64, 64, 0, 128, true) { FramesPerSecond = 1 };
+        Animation iceSpikes = new("Ice Spikes", 3, 64, 64, 0, 192, true) { FramesPerSecond = 2 };
         projectileAnimations.Add("Ice Spikes", iceSpikes);
     }
     public ElementalMove NewElementalMove(ProjectileData projectileData, string playerMoveName)
@@ -39,6 +39,7 @@ public class ProjectileHandler
                 projectileData.Direction
             )
             {
+                Name = projectileData.Name,
                 Position = projectileData.StartingPosition,
                 CurrentAnimation = playerMoveName
             };

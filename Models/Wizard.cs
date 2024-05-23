@@ -5,10 +5,10 @@ namespace TheWiseOneQuest.Models;
 
 public class Wizard
 {
-	public int Hp { get; set; }
+	public byte Hp { get; set; }
 	public int MaxHealth { get; set; }
-	public int Dexterity { get; set; }
-	public int Wisdom { get; set; }
+	public byte Dexterity { get; set; }
+	public byte Wisdom { get; set; }
 	public string Name { get; set; }
 
 	public Wizard()

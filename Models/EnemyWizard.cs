@@ -15,9 +15,9 @@ public class EnemyWizard : Wizard
     public void CreateStats()
     {
         int availPoints = _Utils.DEFAULT_STARTER_POINTS / 2;
-        Hp = _Utils.GenerateRandomInteger(availPoints);
-        Dexterity = _Utils.GenerateRandomInteger(availPoints);
-        Wisdom = _Utils.GenerateRandomInteger(availPoints);
-        MaxHealth = _Utils.GenerateRandomInteger(availPoints);
+        Hp = (byte)_Utils.GenerateRandomInteger(availPoints);
+        Dexterity = (byte)_Utils.GenerateRandomInteger(availPoints);
+        Wisdom = (byte)_Utils.GenerateRandomInteger(availPoints);
+        MaxHealth = 100 + Hp;
     }
 }

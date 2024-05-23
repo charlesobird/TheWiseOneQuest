@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using GeonBit.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TheWiseOneQuest.Components;
 using TheWiseOneQuest.Models.Sprites;
 using Core = TheWiseOneQuest.TheWiseOneQuest;
 
@@ -16,9 +18,10 @@ public class ElementalMove : Projectile
         Dictionary<string, Animation> animation,
         Vector2 spriteSize,
         Vector2 positionAfterFire,
-        eDirection direction
+        eDirection direction,
+        float layerDepth = 0
     )
-        : base(sprite, animation, spriteSize, positionAfterFire, direction) { }
+        : base(sprite, animation, spriteSize, positionAfterFire, direction, layerDepth) { }
 
     public override void Update(GameTime gameTime)
     {
@@ -26,7 +29,7 @@ public class ElementalMove : Projectile
         if (isFiring)
         {
             Position += new Vector2(3 * Speed * (int)Direction, 0);
-            if (Position.X >= newPosition.X && Position.Y == newPosition.Y)
+            if (Position.X >= newPosition.X)
             {
                 isFiring = false;
                 isFinished = true;
@@ -35,13 +38,24 @@ public class ElementalMove : Projectile
                 Console.WriteLine("CUSTOM COLLISION HAPPNED");
 
                 var possibleHits = Core.spriteHandler.activeAnimatedSprites.Where(x =>
-                    x.Position.X == newPosition.X
+                x.Value.Position.X == newPosition.X
                 );
                 foreach (var hit in possibleHits)
                 {
-                    Console.WriteLine("NO CUSTOM COLLISION HAPPNED");
-                    Console.WriteLine($"{hit?.Name} was killed by {Name}");
-                    hit.CurrentAnimation = "Death";
+                    Console.WriteLine($"{hit.Key} was hit by {Name}");
+                    if (hit.Key == "PlayerSprite")
+                    {
+                        Core.spriteHandler.activeAnimatedSprites["PlayerSprite"].CurrentAnimation = "Hurt";
+                        Core.battleHandler.DealDamageAfterHit(true);
+                        Core.spriteHandler.activeAnimatedSprites["PlayerSprite"].CurrentAnimation = "Idle";
+                    }
+                    else if (hit.Key == "EnemySprite")
+                    {
+                        Core.spriteHandler.activeAnimatedSprites["EnemySprite"].CurrentAnimation = "Hurt";
+                        Core.battleHandler.DealDamageAfterHit();
+                        Core.spriteHandler.activeAnimatedSprites["EnemySprite"].CurrentAnimation = "Idle";
+                        Core.battleHandler.PromptElementSelection();
+                    }
                 }
             }
         }

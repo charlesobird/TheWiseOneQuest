@@ -74,7 +74,7 @@ public class WizardHandler
 	{
 		string[] enemyNames = EnemyResources.names;
 		string enemyName = enemyNames.ElementAt(_Utils.GenerateRandomInteger(enemyNames.Length));
-		string[] enemyDescriptors = EnemyResources.names;
+		string[] enemyDescriptors = EnemyResources.descriptors;
 		string enemyDescriptor = enemyDescriptors.ElementAt(
 			_Utils.GenerateRandomInteger(enemyDescriptors.Length)
 		);

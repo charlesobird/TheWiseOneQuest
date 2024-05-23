@@ -46,7 +46,7 @@ public class CharacterCreation : Menu
         {
             Padding = Vector2.Zero
         };
-
+    
         var columnPanels = PanelsGrid.GenerateColums(3, entitiesGroup);
         foreach (var column in columnPanels)
         {
@@ -188,15 +188,15 @@ public class CharacterCreation : Menu
                         () =>
                         {
                             PlayerWizard playerWizard = Core.wizardHandler.CreateWizard(wizardName);
-                            playerWizard.Hp = wizardStats[0];
-                            playerWizard.Wisdom = wizardStats[1];
-                            playerWizard.Dexterity = wizardStats[2];
+                            playerWizard.Hp = (byte)wizardStats[0];
+                            playerWizard.Wisdom = (byte)wizardStats[1];
+                            playerWizard.Dexterity = (byte)wizardStats[2];
                             playerWizard.MaxHealth = wizardStats[3];
                             Core.wizardHandler.SaveWizardState(wizardName, playerWizard);
                             Core.SetPlayerWizard(playerWizard);
                             Core.exitGame.Visible = true;
                             RemoveFromParent();
-                            Core.ShowBattleScreen();
+                            Core.StartBattleHandler();
                             return true;
                         },
                         () =>

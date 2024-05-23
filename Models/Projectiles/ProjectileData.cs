@@ -19,8 +19,9 @@ public class ProjectileData
     public Vector2 SpriteSize;
     public Vector2 StartingPosition;
     public Vector2 PositionAfterFire;
-
     public eDirection Direction;
+    public string Name;
+    public float LayerDepth;
 
     public ProjectileData(
         Texture2D sprite,
@@ -28,14 +29,18 @@ public class ProjectileData
         Vector2 spriteSize,
         Vector2 startingPosition,
         Vector2 positionAfterFire,
-        eDirection direction
+        eDirection direction,
+        string name,
+        float layerDepth = 0
     )
     {
+        Name = name;
         Sprite = sprite;
         Animations = animations;
         SpriteSize = spriteSize;
         StartingPosition = startingPosition;
         PositionAfterFire = positionAfterFire;
         Direction = direction;
+        LayerDepth = layerDepth;
     }
 }

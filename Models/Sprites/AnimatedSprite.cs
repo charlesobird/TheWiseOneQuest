@@ -9,12 +9,13 @@ namespace TheWiseOneQuest.Models.Sprites
     public class AnimatedSprite : Sprite
     {
         readonly Dictionary<string, Animation> animations;
+        public float LayerDepth;
         string currentAnimation;
         string defaultAnimation;
         bool isAnimating;
         readonly Texture2D texture;
 
-        SpriteEffects spriteEffect;
+        public SpriteEffects spriteEffect;
 
         public string CurrentAnimation
         {
@@ -38,9 +39,11 @@ namespace TheWiseOneQuest.Models.Sprites
             Texture2D sprite,
             Dictionary<string, Animation> animation,
             Vector2 spriteSize,
-            SpriteEffects _spriteEffect = SpriteEffects.None
+            SpriteEffects _spriteEffect = SpriteEffects.None,
+            float layerDepth = 0
         )
         {
+            LayerDepth = layerDepth;
             texture = sprite;
             animations = new();
             Size = spriteSize;
@@ -78,10 +81,11 @@ namespace TheWiseOneQuest.Models.Sprites
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (animations[currentAnimation].CurrentFrame == 0 && !animations[currentAnimation].isLooping)
-            {
-                currentAnimation = animations.ContainsKey("DEFAULT_ANIMATION") ? "DEFAULT_ANIMATION" : currentAnimation;
-            }
+            // if (animations[currentAnimation].CurrentFrame == 0 && !animations[currentAnimation].isLooping)
+            // {
+            //     currentAnimation = animations.ContainsKey("DEFAULT_ANIMATION") ? "DEFAULT_ANIMATION" : currentAnimation;
+            // }
+            if (Name.Contains(""))
             spriteBatch.Draw(
                 texture,
                 new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y),
@@ -90,8 +94,9 @@ namespace TheWiseOneQuest.Models.Sprites
                 0,
                 Vector2.Zero,
                 spriteEffect,
-                0
+                LayerDepth
             );
         }
     }
+
 }

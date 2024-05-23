@@ -19,7 +19,6 @@ namespace TheWiseOneQuest
     {
         public static GraphicsDeviceManager graphics;
 
-        public static List<dynamic> activeSprites = new List<dynamic>();
         public static List<ElementalMove> elementalProjectiles = new List<ElementalMove>();
         public static WizardHandler wizardHandler = new();
         public static BattleHandler battleHandler = new();
@@ -126,7 +125,7 @@ namespace TheWiseOneQuest
             // projectileHandler.FireAllElementalMoves();
         }
 
-        public static void ShowBattleScreen()
+        public static void StartBattleHandler()
         {
             battleHandler.BattleInit();
         }
@@ -140,8 +139,6 @@ namespace TheWiseOneQuest
             spriteHandler.Update(gameTime);
             projectileHandler?.ClearFinishedElementalMoves();
             projectileHandler.Update(gameTime);
-
-            battleHandler.Update();
             // if (
             // 	GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
             // 	|| Keyboard.GetState().IsKeyDown(Keys.Escape)

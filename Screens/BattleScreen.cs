@@ -5,17 +5,38 @@ using TheWiseOneQuest.Components;
 using GeonBit.UI.Entities;
 using TheWiseOneQuest.Models;
 using System.Collections.Generic;
+using System;
 namespace TheWiseOneQuest.Screens;
 
 public class BattleScreen : Menu
 {
     List<Button> actionButtons = new();
+    WizardInfo playerInfo;
+    WizardInfo enemyInfo;
     public void LockActionButtons()
     {
         foreach (var button in actionButtons)
         {
-            button.Locked = true;
+            button.Enabled = true;
         }
+    }
+    public void UnlockActionButtons()
+    {
+        foreach (var button in actionButtons)
+        {
+            button.Enabled = false;
+        }
+    }
+    public void UpdateHealthBars()
+    {
+        playerInfo.wizardHealth.Value = (int)Core.battleHandler.currPlayerHealth;
+        enemyInfo.wizardHealth.Value = (int)Core.battleHandler.currEnemyHealth;
+        playerInfo.wizHealthParagraph.Text = $"Health: {Core.battleHandler.currPlayerHealth} / {Core.playerWizard.MaxHealth}";
+        enemyInfo.wizHealthParagraph.Text = $"Health: {Core.battleHandler.currEnemyHealth} / {Core.battleHandler.enemyWizard.MaxHealth}";
+    }
+    public void DestroyBattleScreen()
+    {
+        RemoveFromParent();
     }
     public BattleScreen()
     {
@@ -24,29 +45,63 @@ public class BattleScreen : Menu
         Opacity = 1;
         Size = new Vector2(0, 0);
 
-        // Core.battleHandler.StartBattle();
-        WizardInfo playerInfo = new WizardInfo(Core.playerWizard)
+        playerInfo = new WizardInfo(Core.playerWizard)
         {
             Anchor = Anchor.TopLeft
         };
-
-        Button attackButton = new("Attack!");
-        Button blockButton = new("Block!");
-        Button healButton = new("Heal Yourself!");
+        if (Core.battleHandler.playerAdvantage)
+        {
+            Paragraph advantageParagraph = new("You have a 50% damage bonus this attack!")
+            {
+                Anchor = Anchor.AutoCenter
+            };
+            playerInfo.AddChild(advantageParagraph);
+        }
+        enemyInfo = new WizardInfo(Core.battleHandler.enemyWizard)
+        {
+            Anchor = Anchor.TopRight
+        };
+        if (Core.battleHandler.playerAdvantage)
+        {
+            Paragraph advantageParagraph = new("You have a 50% damage bonus this attack!")
+            {
+                Anchor = Anchor.AutoCenter
+            };
+            enemyInfo.AddChild(advantageParagraph);
+        }
+        Button attackButton = new("Attack!")
+        {
+            OnClick = (e) =>
+            {
+                Core.battleHandler.HandleAttack();
+            }
+        };
+        Button blockButton = new("Block!")
+        {
+            OnClick = (e) =>
+            {
+                Core.battleHandler.HandleBlock(true);
+            }
+        };
 
         actionButtons.Add(attackButton);
         actionButtons.Add(blockButton);
-        actionButtons.Add(healButton);
 
-
-        if (!Core.battleHandler.PlayerTurn)
-        {
-            // action buttons are locked
-            LockActionButtons();
-        }
+        Panel actionPanel = new(
+            new Vector2(0.25f),
+            PanelSkin.None,
+            Anchor.BottomCenter
+        );
 
         AddChild(playerInfo);
-        Button returnToMenu = new("Main Menu", ButtonSkin.Default, Anchor.BottomCenter, size: new Vector2(0.25f, 0.05f))
+        AddChild(enemyInfo);
+
+        // Action Buttons
+        foreach (Button actionBtn in actionButtons)
+        {
+            actionPanel.AddChild(actionBtn);
+        }
+        Button returnToMenu = new("Main Menu")
         {
             OnClick = (Entity bt) =>
             {
@@ -56,6 +111,16 @@ public class BattleScreen : Menu
                 RemoveFromParent();
             }
         };
-        AddChild(returnToMenu);
+        actionPanel.AddChild(returnToMenu);
+        AddChild(actionPanel);
+
+
+    }
+    public void InitBattleScreen(bool playerGoesFirst)
+    {
+        if (!playerGoesFirst)
+        {
+            Core.battleHandler.HandleAttack(true);
+        }
     }
 }

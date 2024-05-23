@@ -12,7 +12,7 @@ namespace TheWiseOneQuest.Handlers;
 
 public class SpriteHandler
 {
-    public List<AnimatedSprite> activeAnimatedSprites = new List<AnimatedSprite>();
+    public Dictionary<string, AnimatedSprite> activeAnimatedSprites = new();
     public Dictionary<string, Animation> wizardAnimations = new();
     public SpriteHandler() { }
 
@@ -38,6 +38,12 @@ public class SpriteHandler
                 FramesPerSecond = 5
             };
         wizardAnimations.Add("Death", wizDeathAnim);
+        Animation wizHurtAnim =
+            new("WizDeath", 3, 128, 128, 0, (int)_WizardSpriteLocations.Hurt, false)
+            {
+                FramesPerSecond = 5
+            };
+        wizardAnimations.Add("Hurt", wizHurtAnim);
 
         wizardAnimations.Add("DEFAULT_ANIMATION", wizIdleAnim);
     }
@@ -51,9 +57,11 @@ public class SpriteHandler
 
         )
         {
+            Name = spriteData.Name,
             Position = spriteData.StartingPosition
         };
-        activeAnimatedSprites.Add(animatedSprite);
+
+        activeAnimatedSprites.Add(spriteData.Name, animatedSprite);
         return animatedSprite;
     }
 
@@ -65,9 +73,9 @@ public class SpriteHandler
     {
         if (activeAnimatedSprites.Count > 0)
         {
-            foreach (Sprite sprite in activeAnimatedSprites)
+            foreach (KeyValuePair<string, AnimatedSprite> sprite in activeAnimatedSprites)
             {
-                sprite.Update(gameTime);
+                sprite.Value.Update(gameTime);
             }
         }
     }
@@ -75,9 +83,9 @@ public class SpriteHandler
     {
         if (activeAnimatedSprites.Count > 0)
         {
-            foreach (Sprite sprite in activeAnimatedSprites)
+            foreach (KeyValuePair<string, AnimatedSprite> sprite in activeAnimatedSprites)
             {
-                sprite.Draw(spriteBatch);
+                sprite.Value.Draw(spriteBatch);
             }
         }
     }

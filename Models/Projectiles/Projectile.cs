@@ -18,11 +18,12 @@ public class Projectile : AnimatedSprite
 		Dictionary<string, Animation> animation,
 		Vector2 spriteSize,
 		Vector2 positionAfterFire,
-        eDirection direction
+		eDirection direction,
+		float layerDepth
 	)
-		: base(sprite, animation, spriteSize)
+		: base(sprite, animation, spriteSize, direction == eDirection.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None, layerDepth)
 	{
-        Direction = direction;
+		Direction = direction;
 		isFinished = false;
 		isFiring = false;
 		newPosition = positionAfterFire;
@@ -41,7 +42,7 @@ public class Projectile : AnimatedSprite
 		// check for collision and move sprite
 		if (isFiring)
 		{
-			Position += new Vector2(3 * Speed * (int)Direction, 0) ;
+			Position += new Vector2(3 * Speed * (int)Direction, 0);
 			if (Position.X >= newPosition.X && Position.Y == newPosition.Y)
 			{
 				isFiring = false;

@@ -57,9 +57,14 @@ public class CharacterSelection : Menu
                 {
                     if (selectedWizard == null)
                         return;
+                    if (selectedWizard.TheWiseOne) {
+                        UserInterface.Active.AddEntity(new GameResult(selectedWizard.TheWiseOne, selectedWizard));
+                        RemoveFromParent();
+                        return;
+                    }
                     Core.SetPlayerWizard(selectedWizard);
                     RemoveFromParent();
-                    Core.ShowBattleScreen();
+                    Core.StartBattleHandler();
                 }
             };
 
