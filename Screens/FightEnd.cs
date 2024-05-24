@@ -21,9 +21,13 @@ public class FightEnd : Menu
             feedbackParagraph.Text = "Don't worry, come back tomorrow and try again and be one step closer to becoming \"The Wise One\"";
         }
 
-        Button changeCharacter = new("Change Character"){
-            OnClick = (e) => {
-                UserInterface.Active.AddEntity(new CharacterSelection());
+        Button changeCharacter = new("Change Character")
+        {
+            OnClick = (e) =>
+            {
+                CharacterSelection characterSelection = new();
+                UserInterface.Active.AddEntity(characterSelection);
+                characterSelection.SetupUI(Core.wizardHandler.GetWizards());
                 RemoveFromParent();
             }
         };

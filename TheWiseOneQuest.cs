@@ -26,8 +26,6 @@ namespace TheWiseOneQuest
     public class TheWiseOneQuest : Game
     {
         public static GraphicsDeviceManager graphics;
-
-        public static List<ElementalMove> elementalProjectiles = new List<ElementalMove>();
         public static MusicHandler musicHandler = new();
         public static WizardHandler wizardHandler = new();
         public static BattleHandler battleHandler = new();
@@ -37,12 +35,7 @@ namespace TheWiseOneQuest
         public static SpriteBatch spriteBatch;
         public static int screenWidth;
         public static int screenHeight;
-        public static Panel mainMenu;
         public static Button exitGame;
-        public static AnimatedSprite playerSprite;
-        public static AnimatedSprite enemySprite;
-        public static Dictionary<string, Animation> animations;
-        public static Dictionary<string, Animation> projectileAnimations;
 
         public static PlayerWizard playerWizard = null;
 
@@ -99,7 +92,6 @@ namespace TheWiseOneQuest
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            animations = new();
 
             spriteHandler.CreateWizardAnimations();
             projectileHandler.CreateProjectileAnimations();

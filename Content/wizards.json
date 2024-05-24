@@ -20,5 +20,27 @@
     "Dexterity": 10,
     "Wisdom": 18,
     "Name": "Tester"
+  },
+  "Tyler": {
+    "RoundsWon": 0,
+    "RoundsPlayed": 2,
+    "TheWiseOne": false,
+    "GameLost": false,
+    "Hp": 10,
+    "MaxHealth": 155,
+    "Dexterity": 10,
+    "Wisdom": 10,
+    "Name": "Tyler"
+  },
+  "Htigiusghis": {
+    "RoundsWon": 0,
+    "RoundsPlayed": 3,
+    "TheWiseOne": false,
+    "GameLost": false,
+    "Hp": 9,
+    "MaxHealth": 145,
+    "Dexterity": 12,
+    "Wisdom": 9,
+    "Name": "Htigiusghis"
   }
 }

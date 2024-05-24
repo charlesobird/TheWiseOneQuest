@@ -146,6 +146,9 @@ public class BattleHandler
 
 	public void PromptElementSelection()
 	{
+		if (gameOver) {
+			return;
+		}
 		if (playerSprite != null && enemySprite != null)
 		{
 			playerSprite.CurrentAnimation = "Idle";
@@ -343,6 +346,7 @@ public class BattleHandler
 	{
 		if (currPlayerHealth <= 0 || currEnemyHealth <= 0)
 		{
+			gameOver = true;
 			Core.playerWizard.RoundsPlayed++;
 			// Check who has died
 			if (currPlayerHealth <= 0)
@@ -363,7 +367,6 @@ public class BattleHandler
 			dynamic gui;
 			if (Core.playerWizard.RoundsWon == _Utils.DEFAULT_ROUNDS_WON_THRESHOLD)
 			{
-				gameOver = true;
 				Core.playerWizard.TheWiseOne = true;
 				gui = new GameResult(true, Core.playerWizard); // Win the tournament
 			}
@@ -432,6 +435,7 @@ public class BattleHandler
 			playerCasting = false;
 			EnemyAttack();
 			await Task.Delay(5000);
+			CheckForDeadWizard();
 			PromptElementSelection();
 		}
 		else
@@ -442,6 +446,7 @@ public class BattleHandler
 			enemyCasting = false;
 			PlayerAttack();
 		}
+		battleScreen.UnlockActionButtons();
 	}
 	public async void HandleHeal(bool playerWantsToHeal = false)
 	{
@@ -456,6 +461,7 @@ public class BattleHandler
 			playerCasting = false;
 			EnemyAttack();
 			await Task.Delay(5000);
+			CheckForDeadWizard();
 			PromptElementSelection();
 		}
 		else
