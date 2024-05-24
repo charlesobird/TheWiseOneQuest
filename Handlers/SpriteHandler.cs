@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-using TheWiseOneQuest.Models;
-using TheWiseOneQuest.Models.Sprites;
 using _WizardSpriteLocations = TheWiseOneQuest.Utils.WIZARD_SPRITE_SHEET_LOCATIONS;
 
 namespace TheWiseOneQuest.Handlers;
 
 public class SpriteHandler
 {
+    // Storage of the AnimatedSprites within the game e.g. PlayerSprite, EnemySprite
     public Dictionary<string, AnimatedSprite> activeAnimatedSprites = new();
     public Dictionary<string, Animation> wizardAnimations = new();
     public SpriteHandler() { }

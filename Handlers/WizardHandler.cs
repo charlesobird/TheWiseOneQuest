@@ -4,20 +4,19 @@ namespace TheWiseOneQuest.Handlers;
 
 public class WizardHandler
 {
-#nullable enable
-	public static Dictionary<string, PlayerWizard>? Wizards { get; set; }
-#nullable disable
-	public JsonHandler storage = new();
+	private static Dictionary<string, PlayerWizard> Wizards { get; set; }
+	private JsonHandler storage = new();
 
-	public WizardHandler() { }
+	public WizardHandler()
+	{
+		Wizards = null;
+	}
 
 	public void FindWizardStore()
 	{
 		if (!File.Exists(_Utils.WIZARD_STORE_FILE_NAME))
 		{
 			storage.CreateFile(_Utils.WIZARD_STORE_FILE_NAME);
-			//Thread.Sleep(20);
-			//storage.WriteEmptyJSONFile(_Utils.WIZARD_STORE_FILE_NAME);
 		}
 	}
 
@@ -46,11 +45,6 @@ public class WizardHandler
 		return matchingWizard;
 	}
 
-	public bool CheckForWizard(string name)
-	{
-		return Wizards.ContainsKey(name);
-	}
-
 	public PlayerWizard CreateWizard(string name)
 	{
 		PlayerWizard wizard = new PlayerWizard(name);
@@ -63,16 +57,21 @@ public class WizardHandler
 		storage.AppendToFile<PlayerWizard>(_Utils.WIZARD_STORE_FILE_NAME, wizardName, wizard);
 		Wizards = GetWizards();
 	}
-
 	public EnemyWizard CreateEnemyWizard()
 	{
+		// Gets the names from the EnemyResources
 		string[] enemyNames = EnemyResources.names;
-		string enemyName = enemyNames.ElementAt(_Utils.GenerateRandomInteger(maxValue:enemyNames.Length));
+		// Gets a random name from the EnemyResources.names
+		string enemyName = enemyNames.ElementAt(_Utils.GenerateRandomInteger(maxValue: enemyNames.Length));
+		// Gets the descriptors from the EnemyResources
 		string[] enemyDescriptors = EnemyResources.descriptors;
+		// Gets a random descriptor from the EnemyResources.descriptors
 		string enemyDescriptor = enemyDescriptors.ElementAt(
-			_Utils.GenerateRandomInteger(maxValue:enemyDescriptors.Length)
+			_Utils.GenerateRandomInteger(maxValue: enemyDescriptors.Length)
 		);
+		// Create the name by joining the Descriptor and Name
 		enemyName = $"{enemyDescriptor} {enemyName}";
+		// Create the Enemy Wizard and Generate some Stats for them
 		EnemyWizard enemyWizard = new EnemyWizard(enemyName);
 		enemyWizard.CreateStats();
 		return enemyWizard;

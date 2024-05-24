@@ -5,7 +5,7 @@ namespace TheWiseOneQuest.Models.Sprites
 {
     public enum Facing { Up, Down, Left, Right }
 
-    public abstract class Sprite // : ISprite
+    public abstract class Sprite
     {
         protected float _speed;
         protected Vector2 _velocity;
@@ -35,7 +35,7 @@ namespace TheWiseOneQuest.Models.Sprites
         public Sprite()
         {
             Position = new Vector2(0);
-            Speed = 1.6f;
+            Speed = 20f;
         }
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(SpriteBatch spriteBatch);

@@ -5,3 +5,6 @@ bin
 obj
 test.cs
 .vscode
+FightLogs
+enemyDescriptors.json
+enemyNames.json

@@ -4,6 +4,7 @@ using TheWiseOneQuest.Models;
 
 namespace TheWiseOneQuest.Components;
 
+// For displaying a Wizard's Information (Name, health, advantages)
 public class WizardInfo : Panel
 {
 	public Paragraph wizardName;
@@ -18,7 +19,7 @@ public class WizardInfo : Panel
 		wizardHealth = new ProgressBar(0, wizard.MaxHealth)
 		{
 			Value = wizard.MaxHealth,
-			Locked = true,
+			Locked = true, // This makes it so the player can't slide the progress bar manually with their mouse
 			SliderSkin = SliderSkin.Default
 		};
 		wizHealthParagraph = new Paragraph($"Health: {wizard.MaxHealth} / {wizard.MaxHealth}", Anchor.Center);

@@ -1,35 +1,24 @@
 {
+  "Charles": {
+    "RoundsWon": 0,
+    "RoundsPlayed": 6,
+    "TheWiseOne": false,
+    "GameLost": false,
+    "Hp": 7,
+    "MaxHealth": 128,
+    "Dexterity": 10,
+    "Wisdom": 13,
+    "Name": "Charles"
+  },
   "Tester": {
-    "RoundsWon": 0,
-    "RoundsPlayed": 0,
+    "RoundsWon": 2,
+    "RoundsPlayed": 2,
     "TheWiseOne": false,
     "GameLost": false,
-    "Hp": 3,
-    "MaxHealth": 108,
-    "Dexterity": 25,
-    "Wisdom": 7,
+    "Hp": 2,
+    "MaxHealth": 105,
+    "Dexterity": 10,
+    "Wisdom": 18,
     "Name": "Tester"
-  },
-  "Charlers": {
-    "RoundsWon": 0,
-    "RoundsPlayed": 0,
-    "TheWiseOne": false,
-    "GameLost": false,
-    "Hp": 1,
-    "MaxHealth": 101,
-    "Dexterity": 25,
-    "Wisdom": 4,
-    "Name": "Charlers"
-  },
-  "Charlesss": {
-    "RoundsWon": 0,
-    "RoundsPlayed": 0,
-    "TheWiseOne": false,
-    "GameLost": false,
-    "Hp": 4,
-    "MaxHealth": 110,
-    "Dexterity": 11,
-    "Wisdom": 15,
-    "Name": "Charlesss"
   }
 }

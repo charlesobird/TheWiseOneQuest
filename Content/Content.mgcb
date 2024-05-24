@@ -4291,6 +4291,12 @@
 /processorParam:TextureFormat=Color
 /build:Icons/Plus.png;icons/Plus.png
 
+#begin MysticalMelodies.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:MysticalMelodies.mp3
+
 #begin Sprites/AirWizard.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4302,30 +4308,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/AirWizard.png
-
-#begin Sprites/FireWizard.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/FireWizard.png
-
-#begin Sprites/WaterWizard.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/WaterWizard.png
 
 #begin Sprites/EarthWizard.png
 /importer:TextureImporter
@@ -4339,6 +4321,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/EarthWizard.png
 
+#begin Sprites/FireWizard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/FireWizard.png
+
 #begin Sprites/Projectiles/ElementalProjectiles.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4351,6 +4345,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Projectiles/ElementalProjectiles.png
 
+#begin Sprites/WaterWizard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/WaterWizard.png
+
 #begin Summer7.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4362,6 +4368,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Summer7.png
+
+#begin WindsOfMagic.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:WindsOfMagic.wav
 
 #begin wizards.json
 /copy:wizards.json

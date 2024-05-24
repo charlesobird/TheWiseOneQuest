@@ -7,16 +7,17 @@ public class BattleScreen : Menu
     public WizardInfo enemyInfo;
     public void LockActionButtons()
     {
+
         foreach (var button in actionButtons)
         {
-            button.Enabled = true;
+            button.Enabled = false;
         }
     }
     public void UnlockActionButtons()
     {
         foreach (var button in actionButtons)
         {
-            button.Enabled = false;
+            button.Enabled = true;
         }
     }
     public void UpdateHealthBars()
@@ -46,12 +47,20 @@ public class BattleScreen : Menu
         {
             Anchor = Anchor.TopRight
         };
+        Panel headerPanel = new(
+            size: new Vector2(0.25f,0.15f),
+            anchor:Anchor = Anchor.TopCenter
+        ){
+            MaxSize = new Vector2(0.35f,0.25f)
+        };
+        headerPanel.AddChild(new Header($"Round {Core.playerWizard.RoundsPlayed + 1} of {_Utils.DEFAULT_ROUNDS_WON_THRESHOLD}",Anchor.Center));
         Button attackButton = new("Attack!")
         {
             OnClick = async (e) =>
             {
                 LockActionButtons();
                 await Core.battleHandler.AttackAsync();
+                UnlockActionButtons();
             },
             Anchor = Anchor.AutoInlineNoBreak
         };
@@ -75,16 +84,16 @@ public class BattleScreen : Menu
         };
 
         Panel actionPanel = new(
-            new Vector2(0.5f, 0.25f),
+            new Vector2(0.5f, 0.20f),
             PanelSkin.None,
             Anchor.BottomCenter,
             Vector2.Zero
         );
-
         actionButtons.Add(attackButton);
         actionButtons.Add(healButton);
         actionButtons.Add(blockButton);
 
+        AddChild(headerPanel);
         AddChild(playerInfo);
         AddChild(enemyInfo);
         Button returnToMenu = new("Main Menu")
@@ -121,7 +130,7 @@ public class BattleScreen : Menu
         if (!playerGoesFirst)
         {
             LockActionButtons();
-            await Core.battleHandler.AttackAsync(true);
+            await Core.battleHandler.AttackAsync();
 
         }
     }

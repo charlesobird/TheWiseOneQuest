@@ -61,6 +61,13 @@ public class CharacterSelection : Menu
                         RemoveFromParent();
                         return;
                     }
+
+                    if (Core.dayLockHandler.FindLogForPlayer(selectedWizard)) {
+                        UserInterface.Active.AddEntity(new AlreadyFoughtToday());
+                        RemoveFromParent();
+                        return;
+                    }
+                    
                     Core.SetPlayerWizard(selectedWizard);
                     RemoveFromParent();
                     Core.StartBattleHandler();

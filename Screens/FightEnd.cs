@@ -7,7 +7,7 @@ namespace TheWiseOneQuest.Screens;
 
 public class FightEnd : Menu
 {
-    public FightEnd(bool fightWon)
+    public FightEnd(bool fightWon, PlayerWizard playerWizard)
     {
         Header header = new("The Fight is Over");
         Paragraph paragraph = new("Come back tomorrow to fight again!");
@@ -21,13 +21,21 @@ public class FightEnd : Menu
             feedbackParagraph.Text = "Don't worry, come back tomorrow and try again and be one step closer to becoming \"The Wise One\"";
         }
 
-        Button changeCharacter = new("Change Character");
+        Button changeCharacter = new("Change Character"){
+            OnClick = (e) => {
+                UserInterface.Active.AddEntity(new CharacterSelection());
+                RemoveFromParent();
+            }
+        };
         Button exitGame = new("Exit Game")
         {
-            OnClick = (e) =>
-            {
-                Core.exitGame.OnClick.Invoke(e);
-            },
+            OnClick = Core.exitGame.OnClick.Invoke,
         };
+        AddChild(header);
+        AddChild(paragraph);
+        AddChild(feedbackParagraph);
+        AddChild(changeCharacter);
+        AddChild(exitGame);
+        Core.dayLockHandler.CreateLogForPlayer(playerWizard);
     }
 }

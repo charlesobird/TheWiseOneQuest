@@ -28,10 +28,12 @@ namespace TheWiseOneQuest
         public static GraphicsDeviceManager graphics;
 
         public static List<ElementalMove> elementalProjectiles = new List<ElementalMove>();
+        public static MusicHandler musicHandler = new();
         public static WizardHandler wizardHandler = new();
         public static BattleHandler battleHandler = new();
         public static ProjectileHandler projectileHandler = new();
         public static SpriteHandler spriteHandler = new();
+        public static DayLockHandler dayLockHandler = new();
         public static SpriteBatch spriteBatch;
         public static int screenWidth;
         public static int screenHeight;
@@ -55,6 +57,7 @@ namespace TheWiseOneQuest
             graphics.ToggleFullScreen(); // force full screen
             Content.RootDirectory = "Content";
             _Utils.Content = Content;
+            musicHandler.Play();
             int _ScreenWidth = graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
             int _ScreenHeight = graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
 
@@ -68,7 +71,6 @@ namespace TheWiseOneQuest
             UserInterface.Active.UseRenderTarget = true;
 
             UserInterface.Active.IncludeCursorInRenderTarget = false;
-
             UserInterface.Active.AddEntity(new MainMenu());
 
             exitGame = new Button(
@@ -103,49 +105,16 @@ namespace TheWiseOneQuest
             projectileHandler.CreateProjectileAnimations();
 
         }
-
-        public static void CreateBattleSprites(Element playerElement, Element enemyElement)
-        {
-
-            /* 			Texture2D elemProjectilesSpriteSheet = _Utils.Content.Load<Texture2D>(
-                            "Sprites/Projectiles/ElementalProjectiles"
-                        );
-
-                        ElementalMove fireball = projectileHandler.NewElementalMove(new ProjectileData(
-                            elemProjectilesSpriteSheet,
-                            projectileAnimations,
-                            _Utils.DEFAULT_PROJECTILE_SIZE,
-                            new Vector2(playerSprite.Center.X + 64, playerSprite.Center.Y + 64),
-                            enemySprite.Position,
-                            eDirection.Right
-                        ));
-                        ElementalMove tornado = projectileHandler.NewElementalMove(new ProjectileData(
-                            elemProjectilesSpriteSheet,
-                            projectileAnimations,
-                            _Utils.DEFAULT_PROJECTILE_SIZE,
-                            new Vector2(playerSprite.Center.X + 64, playerSprite.Center.Y + 64),
-                            enemySprite.Position,
-                            eDirection.Left
-                        ));
-                        fireball.CurrentAnimation = "Fireball";
-                        tornado.CurrentAnimation = "Tornado"; */
-            // playerSprite.CurrentAnimation = "CastSpell";
-            // projectileHandler.FireAllElementalMoves();
-        }
-
         public static void StartBattleHandler()
         {
             battleHandler.BattleInit();
         }
-
-
-
         protected override void Update(GameTime gameTime)
         {
             // GeonBit.UIL update UI manager
             UserInterface.Active.Update(gameTime);
             spriteHandler.Update(gameTime);
-            projectileHandler?.ClearFinishedElementalMoves();
+            projectileHandler.ClearFinishedElementalMoves();
             projectileHandler.Update(gameTime);
             // if (
             // 	GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed

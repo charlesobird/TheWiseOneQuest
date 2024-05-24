@@ -1,14 +1,12 @@
-using System;
-using GeonBit.UI.Entities;
-
 namespace TheWiseOneQuest.Components;
 
+// This is useful for creating many of the same Return Buttons and keeping consistent sizing between panels
 public class Menu : Panel
 {
     public Menu()
     {
         Scale = 1f;
-        Size = new Microsoft.Xna.Framework.Vector2(0.5f);
+        Size = new Vector2(0.5f);
         Anchor = Anchor.Center;
     }
 

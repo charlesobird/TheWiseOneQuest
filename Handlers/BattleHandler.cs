@@ -1,7 +1,4 @@
 using System.Data;
-using System.Linq;
-using GeonBit.UI.Utils;
-using System.Threading.Tasks;
 
 namespace TheWiseOneQuest.Handlers;
 
@@ -36,32 +33,6 @@ public class BattleHandler
 	private ElementalMove playerProjectile;
 	private bool firstChoice = true;
 	private bool gameOver = false;
-	public enum EAction
-	{
-		ATTACK,
-		BLOCK,
-		HEAL
-	}
-	public Element PlayerElement
-	{
-		get { return playerElement; }
-		set { playerElement = value; }
-	}
-	public Element EnemyElement
-	{
-		get { return enemyElement; }
-		set { enemyElement = value; }
-	}
-	public bool PlayerTurn
-	{
-		get { return playerCasting; }
-		set { playerCasting = value; }
-	}
-	public bool EnemyTurn
-	{
-		get { return enemyCasting; }
-		set { enemyCasting = value; }
-	}
 
 	public BattleHandler() { }
 
@@ -85,6 +56,7 @@ public class BattleHandler
 			playerCasting = false;
 			enemyCasting = true;
 		}
+		CheckForDeadWizard();
 		battleScreen.UpdateHealthBars();
 
 	}
@@ -127,7 +99,6 @@ public class BattleHandler
 
 		return damage;
 	}
-
 	public static string GetSpriteSheetForElement(Element element)
 	{
 		switch (element)
@@ -214,7 +185,7 @@ public class BattleHandler
 				{
 					battleScreen.playerInfo.infoParagraph.Text = "You have a 50% damage bonus this attack!";
 				}
-					if (enemyAdvantage)
+				if (enemyAdvantage)
 				{
 					battleScreen.enemyInfo.infoParagraph.Text = "The enemy has a 50% damage bonus this attack!";
 				}
@@ -338,8 +309,6 @@ public class BattleHandler
 		{
 			return false;
 		});
-
-
 	}
 	public void CreatePlayerProjectile()
 	{
@@ -374,39 +343,58 @@ public class BattleHandler
 	{
 		if (currPlayerHealth <= 0 || currEnemyHealth <= 0)
 		{
+			Core.playerWizard.RoundsPlayed++;
+			// Check who has died
+			if (currPlayerHealth <= 0)
+			{
+				currPlayerHealth = 0;
+			}
+			if (currEnemyHealth <= 0)
+			{
+				Core.playerWizard.RoundsWon++;
+				currEnemyHealth = 0;
+			}
+			// Reset/Clear remaining Sprites
 			Core.spriteHandler.ClearAnimatedSprites();
 			Core.projectileHandler.ClearElementalMoves();
-			UserInterface.Active.AddEntity(new GameResult(currPlayerHealth > 0, Core.playerWizard));
-			gameOver = true;
+			battleScreen.DestroyBattleScreen();
+			// Check if the player has won the tournament, if they have, show end of the game
+			// if they haven't, show fight result + reminder to play again tomorrow
+			dynamic gui;
+			if (Core.playerWizard.RoundsWon == _Utils.DEFAULT_ROUNDS_WON_THRESHOLD)
+			{
+				gameOver = true;
+				Core.playerWizard.TheWiseOne = true;
+				gui = new GameResult(true, Core.playerWizard); // Win the tournament
+			}
+			else
+			{
+				gui = new FightEnd(currPlayerHealth > 0, Core.playerWizard); // Come back tomorrow
+			}
+			// They got defeated at all rounds so automatic loss
+			if (Core.playerWizard.RoundsPlayed == _Utils.DEFAULT_ROUNDS_WON_THRESHOLD)
+			{
+				gui = new GameResult(false, Core.playerWizard); // Lose the tournament
+			}
+			// Save new stats to the wizards.json file
+			Core.wizardHandler.SaveWizardState(Core.playerWizard.Name, Core.playerWizard);
+			UserInterface.Active.AddEntity(gui);
 			return;
 		}
 
 	}
-	public async Task AttackAsync(bool initAttack = false)
+	public async Task AttackAsync()
 	{
+		// Make sure there aren't any dead wizards
 		CheckForDeadWizard();
+		// No ongoing attack
 		if (attackInProgress)
 		{
 			attackInProgress = false;
-			//battleScreen.LockActionButtons();
 			return;
 		}
 		attackInProgress = true;
-		/* if (initAttack)
-		{
-			if (enemyCasting)
-			{
-				EnemyAttack();
-				battleScreen.UnlockActionButtons();
-				return;
-			}
-			else if (playerCasting)
-			{
-				PlayerAttack();
-				battleScreen.LockActionButtons();
-				return;
-			}
-		} */
+		// Player attacks first
 		if (playerCasting && !gameOver)
 		{
 			PlayerAttack();
@@ -416,6 +404,7 @@ public class BattleHandler
 			await Task.Delay(5000);  // This is so that the projectile has time to hit the other sprite
 			CheckForDeadWizard();
 		}
+		// Enemy Attacks first
 		else if (enemyCasting && !gameOver)
 		{
 			EnemyAttack();
@@ -425,10 +414,12 @@ public class BattleHandler
 			await Task.Delay(5000);  // This is so that the projectile has time to hit the other sprite
 			CheckForDeadWizard();
 		}
-		CheckForDeadWizard();
 		if (gameOver) return;
 		attackInProgress = false;
+		// Next elemental move selection
 		PromptElementSelection();
+		// Make sure the user can select Attack, Block or Heal
+		battleScreen.UnlockActionButtons();
 
 	}
 	public async void HandleBlock(bool playerWantsToBlock = false)
@@ -454,11 +445,13 @@ public class BattleHandler
 	}
 	public async void HandleHeal(bool playerWantsToHeal = false)
 	{
+		battleScreen.LockActionButtons();
 		if (playerWantsToHeal)
 		{
-			battleScreen.LockActionButtons();
 			int healthToGive = _Utils.GenerateRandomInteger(1, Core.playerWizard.MaxHealth);
 			battleScreen.playerInfo.infoParagraph.Text = $"\nYou got healed by {healthToGive}";
+			currPlayerHealth += healthToGive;
+			battleScreen.UpdateHealthBars();
 			enemyCasting = true;
 			playerCasting = false;
 			EnemyAttack();
@@ -469,11 +462,11 @@ public class BattleHandler
 		{
 			int healthToGive = _Utils.GenerateRandomInteger(1, enemyWizard.MaxHealth);
 			battleScreen.playerInfo.infoParagraph.Text = $"\nThe enemy got healed by {healthToGive}";
+			currEnemyHealth += healthToGive;
+			battleScreen.UpdateHealthBars();
 			playerCasting = true;
 			enemyCasting = false;
 			PlayerAttack();
 		}
-		battleScreen.UpdateHealthBars();
-
 	}
 }

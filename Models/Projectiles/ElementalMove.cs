@@ -17,24 +17,28 @@ public class ElementalMove : Projectile
         // check for collision and move sprite
         if (isFiring)
         {
-            Position += new Vector2(2 * Speed * +(int)Direction, 0);
+            Position += new Vector2(4 * Speed * +(int)Direction, 0);
 
             // Check for a wizard at that position
             bool checkHits = false;
             if (Direction == eDirection.Left)
             {
-                if (Position.X < newPosition.X + 32) {
+                if (Position.X < newPosition.X + 32)
+                {
                     checkHits = true;
                 }
-            } else {
-                 if (Position.X > newPosition.X - 32) {
+            }
+            else
+            {
+                if (Position.X > newPosition.X - 32)
+                {
                     checkHits = true;
                 }
             }
             if (checkHits)
             {
                 var possibleHits = Core.spriteHandler.activeAnimatedSprites.Where(x =>
-                x.Value.Position.X == newPosition.X
+                    x.Value.Position.X == newPosition.X
                 );
                 foreach (var hit in possibleHits)
                 {
@@ -42,7 +46,6 @@ public class ElementalMove : Projectile
                     {
                         Core.spriteHandler.activeAnimatedSprites["PlayerSprite"].CurrentAnimation = "Hurt";
                         Core.battleHandler.DealDamageAfterHit(true);
-
                         isFiring = false;
                         isFinished = true;
                     }
@@ -50,7 +53,6 @@ public class ElementalMove : Projectile
                     {
                         Core.spriteHandler.activeAnimatedSprites["EnemySprite"].CurrentAnimation = "Hurt";
                         Core.battleHandler.DealDamageAfterHit();
-
                         isFiring = false;
                         isFinished = true;
                     }
